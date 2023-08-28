@@ -145,11 +145,11 @@ spring:
   redis:
     database: 0
     host: 127.0.0.1
-    port: 32768
+    port: 6379
     password: 'redispw'
 #mybatis plus 设置
 mybatis-plus:
-  mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
+  mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml,classpath*:org/yw/nkhg/**/xml/*Mapper.xml
   global-config:
     # 关闭MP3.0自带的banner
     banner: false

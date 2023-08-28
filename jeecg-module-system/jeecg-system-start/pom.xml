@@ -24,6 +24,11 @@
             <artifactId>jeecg-module-demo</artifactId>
             <version>${jeecgboot.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.yw.nkhg</groupId>
+            <artifactId>nkhg</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
