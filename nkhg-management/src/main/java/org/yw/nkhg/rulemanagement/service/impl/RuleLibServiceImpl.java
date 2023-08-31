@@ -1,6 +1,10 @@
 package org.yw.nkhg.rulemanagement.service.impl;
 
 
+import org.jeecg.common.constant.SymbolConstant;
+import org.jeecg.common.exception.JeecgBootException;
+import org.jeecg.common.util.MinioUtil;
+import org.jeecg.common.util.oConvertUtils;
 import org.yw.nkhg.rulemanagement.entity.RuleLib;
 import org.yw.nkhg.rulemanagement.mapper.RuleLibMapper;
 import org.yw.nkhg.rulemanagement.service.IRuleLibService;
@@ -17,4 +21,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 @Service
 public class RuleLibServiceImpl extends ServiceImpl<RuleLibMapper, RuleLib> implements IRuleLibService {
 
+    @Override
+    public String getFileUrl(String fileName, String bizPath) {
+        if (oConvertUtils.isNotEmpty(bizPath)) {
+            if(bizPath.contains(SymbolConstant.SPOT_SINGLE_SLASH) || bizPath.contains(SymbolConstant.SPOT_DOUBLE_BACKSLASH)){
+                throw new JeecgBootException("上传目录bizPath，格式非法！");
+            }
+        }
+        if(oConvertUtils.isEmpty(bizPath)) {
+            bizPath = "/temp";
+        }
+        return MinioUtil.getObjectUrlDefault(fileName, bizPath);
+    }
 }

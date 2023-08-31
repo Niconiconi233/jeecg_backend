@@ -11,4 +11,7 @@ import org.yw.nkhg.rulemanagement.entity.RuleLib;
  */
 public interface IRuleLibService extends IService<RuleLib> {
 
+
+    public String getFileUrl(String fileName, String bizPath);
+
 }

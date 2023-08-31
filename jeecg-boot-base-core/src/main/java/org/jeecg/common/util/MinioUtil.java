@@ -153,6 +153,12 @@ public class MinioUtil {
         }
     }
 
+    public static String getObjectUrlDefault(String objectName, String bizPath) {
+        String newObjectName = bizPath + "/" + objectName;
+        return getObjectUrl(bucketName, newObjectName, 300);
+    }
+
+
     /**
      * 获取文件外链
      * @param bucketName
