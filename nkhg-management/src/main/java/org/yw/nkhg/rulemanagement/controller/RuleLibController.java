@@ -84,6 +84,16 @@ public class RuleLibController extends JeecgController<RuleLib, IRuleLibService>
 	@RequiresPermissions("rulemanage:rule_lib:add")
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody RuleLib ruleLib) {
+		//添加文件名
+		if(ruleLib.getFileName() == null)
+		{
+			if(ruleLib.getFileUrl() != null)
+			{
+				String fileurl = ruleLib.getFileUrl();
+				String filename = fileurl.substring(fileurl.lastIndexOf("/")+1);
+				ruleLib.setFileName(filename);
+			}
+		}
 		ruleLibService.save(ruleLib);
 		return Result.OK("添加成功！");
 	}
@@ -174,5 +184,21 @@ public class RuleLibController extends JeecgController<RuleLib, IRuleLibService>
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
         return super.importExcel(request, response, RuleLib.class);
     }
+
+
+
+
+	//暂时不设置下载权限
+	//@RequiresPermissions("rulemanage:rule_lib:XXXX")
+	@GetMapping(value = "/getFileUrl")
+	public Result<String> getFileUrl(@RequestParam(name="fileName") String fileName, @RequestParam(name="bizPath") String bizPath) {
+		String tempUrl = ruleLibService.getFileUrl(fileName, bizPath);
+		if (tempUrl != null)
+		{
+			return Result.OK("文件链接获取成功", tempUrl);
+		}
+		return Result.error("获取外链错误");
+	}
+
 
 }
