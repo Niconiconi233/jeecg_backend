@@ -347,6 +347,11 @@ public class SysDictController {
 		// SQL注入漏洞 sign签名校验(表名,label字段,val字段,条件)
 		String dictCode = tbname+","+text+","+code+","+condition;
         SqlInjectionUtil.filterContent(dictCode);
+		//update-begin-author:scott date:20230723 for:【issues/5173】SQL注入
+		if(!dictQueryBlackListHandler.isPass(dictCode)){
+			return result.error500(dictQueryBlackListHandler.getError());
+		}
+		//update-end-author:scott date:20230723 for:【issues/5173】SQL注入
 		List<TreeSelectModel> ls = sysDictService.queryTreeList(query,tbname, text, code, pidField, pid,hasChildField,converIsLeafVal);
 		result.setSuccess(true);
 		result.setResult(ls);
@@ -386,7 +391,7 @@ public class SysDictController {
 	 * @param sysDict
 	 * @return
 	 */
-    //@RequiresPermissions("system:dict:add")
+    @RequiresPermissions("system:dict:add")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Result<SysDict> add(@RequestBody SysDict sysDict) {
 		Result<SysDict> result = new Result<SysDict>();
@@ -407,7 +412,7 @@ public class SysDictController {
 	 * @param sysDict
 	 * @return
 	 */
-    //@RequiresPermissions("system:dict:edit")
+    @RequiresPermissions("system:dict:edit")
 	@RequestMapping(value = "/edit", method = { RequestMethod.PUT,RequestMethod.POST })
 	public Result<SysDict> edit(@RequestBody SysDict sysDict) {
 		Result<SysDict> result = new Result<SysDict>();
@@ -429,7 +434,7 @@ public class SysDictController {
 	 * @param id
 	 * @return
 	 */
-    //@RequiresPermissions("system:dict:delete")
+    @RequiresPermissions("system:dict:delete")
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	@CacheEvict(value={CacheConstant.SYS_DICT_CACHE, CacheConstant.SYS_ENABLE_DICT_CACHE}, allEntries=true)
 	public Result<SysDict> delete(@RequestParam(name="id",required=true) String id) {
@@ -448,7 +453,7 @@ public class SysDictController {
 	 * @param ids
 	 * @return
 	 */
-    //@RequiresPermissions("system:dict:deleteBatch")
+    @RequiresPermissions("system:dict:deleteBatch")
 	@RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
 	@CacheEvict(value= {CacheConstant.SYS_DICT_CACHE, CacheConstant.SYS_ENABLE_DICT_CACHE}, allEntries=true)
 	public Result<SysDict> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
@@ -549,7 +554,7 @@ public class SysDictController {
 	 * @param
 	 * @return
 	 */
-    //@RequiresPermissions("system:dict:importExcel")
+    @RequiresPermissions("system:dict:importExcel")
 	@RequestMapping(value = "/importExcel", method = RequestMethod.POST)
 	public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
  		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
