@@ -58,6 +58,10 @@ public class RuleLibController extends JeecgController<RuleLib, IRuleLibService>
 		IPage<RuleLib> pageList = ruleLibService.page(page, queryWrapper);
 		return Result.OK(pageList);
 	}
+
+	//public Result<>
+
+
 	
 	/**
 	 *   添加

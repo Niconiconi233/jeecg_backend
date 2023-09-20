@@ -88,4 +88,8 @@ public class RuleLib implements Serializable {
     @Excel(name="文件名", width = 15)
     @ApiModelProperty(value = "文件地址")
     private java.lang.String fileName;
+
+    @Excel(name = "阅读次数", width = 15)
+    @ApiModelProperty(value = "阅览次数")
+    private java.lang.Integer viewCount;
 }
