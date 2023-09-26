@@ -92,4 +92,8 @@ public class RuleLib implements Serializable {
     @Excel(name = "阅读次数", width = 15)
     @ApiModelProperty(value = "阅览次数")
     private java.lang.Integer viewCount;
+
+    @Excel(name = "制度标签")
+    @ApiModelProperty(value = "制度标签")
+    private String tags;
 }
